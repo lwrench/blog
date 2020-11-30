@@ -1,0 +1,20 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs",
+    "deploy-gh": "GH=1 yarn build && bash scripts/deploy-gh.sh"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vuepress-theme-reco": "^1.5.5"
+  },
+  "devDependencies": {
+    "vuepress": "^1.5.4"
+  }
+}
