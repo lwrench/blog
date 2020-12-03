@@ -33,6 +33,7 @@ module.exports = {
           { text: "git", link: "/studyBlog/git/"},
           { text: "vue", link: "/studyBlog/vue/" },
           { text: "react", link: "/studyBlog/react/"},
+          { text: "数据结构与算法", link: "/studyBlog/数据结构与算法/"},
         ],
         icon: "reco-coding",
       },
