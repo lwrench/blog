@@ -2,7 +2,9 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/lwrench/blog/middleware/jwt"
 	"github.com/lwrench/blog/pkg/setting"
+	"github.com/lwrench/blog/routers/api"
 	"github.com/lwrench/blog/routers/api/v1"
 )
 
@@ -15,6 +17,8 @@ func InitRouter() *gin.Engine {
 
 	gin.SetMode(setting.RunMode)
 
+	r.GET("/auth", api.GetAuth)
+
 	r.GET("/test", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "test",
@@ -22,6 +26,7 @@ func InitRouter() *gin.Engine {
 	})
 
 	apiv1 := r.Group("/api/v1")
+	apiv1.Use(jwt.JWT())
 	{
 		apiv1.GET("/articles", v1.GetArticles)
 		apiv1.GET("/articles/:id", v1.GetArticle)

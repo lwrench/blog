@@ -2,7 +2,7 @@
 POST http://127.0.0.1:8000/api/v1/articles?tag_id=2&title=test1&desc=test-desc&content=test-content&created_by=test-created&state=1
 
 ###
-GET http://127.0.0.1:8000/api/v1/articles
+GET http://127.0.0.1:8000/api/v1/articles?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJwYXNzd29yZCI6InRlc3QxMjM0NTYiLCJleHAiOjE2ODM5MTg1MjAsImlzcyI6Imdpbi1ibG9nIn0.5yqgYqSrnO6iujyVTQtajOgZIryuvmk39JAPJWvRanE
 
 ###
 GET http://127.0.0.1:8000/api/v1/articles/1
@@ -12,3 +12,6 @@ PUT http://127.0.0.1:8000/api/v1/articles/1?tag_id=2&title=test-edit1&desc=test-
 
 ###
 DELETE http://127.0.0.1:8000/api/v1/articles/1
+
+###
+GET http://127.0.0.1:8000/auth?username=test&password=test123456
