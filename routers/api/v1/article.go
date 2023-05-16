@@ -5,10 +5,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/lwrench/blog/models"
 	"github.com/lwrench/blog/pkg/e"
+	"github.com/lwrench/blog/pkg/logging"
 	"github.com/lwrench/blog/pkg/setting"
 	"github.com/lwrench/blog/pkg/util"
 	"github.com/unknwon/com"
-	"log"
 	"net/http"
 )
 
@@ -29,7 +29,7 @@ func GetArticle(c *gin.Context) {
 		}
 	} else {
 		for _, err := range valid.Errors {
-			log.Printf("err.key: %s, err.message: %s", err.Key, err.Message)
+			logging.Info("err.key: %s, err.message: %s", err.Key, err.Message)
 		}
 	}
 
@@ -70,7 +70,7 @@ func GetArticles(c *gin.Context) {
 
 	} else {
 		for _, err := range valid.Errors {
-			log.Printf("err.key: %s, err.message: %s", err.Key, err.Message)
+			logging.Info("err.key: %s, err.message: %s", err.Key, err.Message)
 		}
 	}
 
@@ -115,7 +115,7 @@ func AddArticle(c *gin.Context) {
 		}
 	} else {
 		for _, err := range valid.Errors {
-			log.Printf("err.key: %s, err.message: %s", err.Key, err.Message)
+			logging.Info("err.key: %s, err.message: %s", err.Key, err.Message)
 		}
 	}
 
@@ -179,7 +179,7 @@ func EditArticle(c *gin.Context) {
 		}
 	} else {
 		for _, err := range valid.Errors {
-			log.Printf("err.key: %s, err.message: %s", err.Key, err.Message)
+			logging.Info("err.key: %s, err.message: %s", err.Key, err.Message)
 		}
 	}
 
@@ -206,7 +206,7 @@ func DeleteArticle(c *gin.Context) {
 		}
 	} else {
 		for _, err := range valid.Errors {
-			log.Printf("err.key: %s, err.message: %s", err.Key, err.Message)
+			logging.Info("err.key: %s, err.message: %s", err.Key, err.Message)
 		}
 	}
 

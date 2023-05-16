@@ -1,11 +1,12 @@
 package jwt
 
 import (
+	"errors"
 	"github.com/gin-gonic/gin"
+	jwt "github.com/golang-jwt/jwt/v5"
 	"github.com/lwrench/blog/pkg/e"
 	"github.com/lwrench/blog/pkg/util"
 	"net/http"
-	"time"
 )
 
 func JWT() gin.HandlerFunc {
@@ -18,11 +19,14 @@ func JWT() gin.HandlerFunc {
 		if token == "" {
 			code = e.INVALID_PARAMS
 		} else {
-			claims, err := util.ParseToken(token)
+			_, err := util.ParseToken(token)
 			if err != nil {
-				code = e.ERROR_AUTH_CHECK_TOKEN_FAIL
-			} else if time.Now().Unix() > claims.ExpiresAt {
-				code = e.ERROR_AUTH_CHECK_TOKEN_TIMEOUT
+				if errors.Is(err, jwt.ErrTokenExpired) {
+					code = e.ERROR_AUTH_CHECK_TOKEN_TIMEOUT
+				} else {
+
+					code = e.ERROR_AUTH_CHECK_TOKEN_FAIL
+				}
 			}
 		}
 

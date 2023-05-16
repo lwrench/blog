@@ -5,8 +5,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/lwrench/blog/models"
 	"github.com/lwrench/blog/pkg/e"
+	"github.com/lwrench/blog/pkg/logging"
 	"github.com/lwrench/blog/pkg/util"
-	"log"
 	"net/http"
 )
 
@@ -30,7 +30,7 @@ func GetAuth(c *gin.Context) {
 	if ok {
 		isExist := models.CheckAuth(username, password)
 		if isExist {
-			token, err := util.GenerateToken(username, password)
+			token, err := util.GenerateToken(username)
 			if err != nil {
 				code = e.ERROR_AUTH_TOKEN
 			} else {
@@ -42,7 +42,7 @@ func GetAuth(c *gin.Context) {
 		}
 	} else {
 		for _, err := range valid.Errors {
-			log.Println(err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
 		}
 	}
 

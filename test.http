@@ -2,10 +2,11 @@
 POST http://127.0.0.1:8000/api/v1/articles?tag_id=2&title=test1&desc=test-desc&content=test-content&created_by=test-created&state=1
 
 ###
-GET http://127.0.0.1:8000/api/v1/articles?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJwYXNzd29yZCI6InRlc3QxMjM0NTYiLCJleHAiOjE2ODM5MTg1MjAsImlzcyI6Imdpbi1ibG9nIn0.5yqgYqSrnO6iujyVTQtajOgZIryuvmk39JAPJWvRanE
+GET http://127.0.0.1:8000/api/v1/articles?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpc3MiOiJnaW4tYmxvZyIsImV4cCI6MTY4NDE2Nzc0MH0.VzVuUaXNhZGOHFjvtjM9HXGJrwdiqNf52ndkxszDCoQ
+
 
 ###
-GET http://127.0.0.1:8000/api/v1/articles/1
+GET http://127.0.0.1:8000/api/v1/articles/1?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJwYXNzd29yZCI6InRlc3QxMjM0NTYiLCJleHAiOjE2ODM5ODAyMjksImlzcyI6Imdpbi1ibG9nIn0.rC28THwXkEixY3eRSpDTxJIrSfilzxjrpJ7XQHVTytQ
 
 ###
 PUT http://127.0.0.1:8000/api/v1/articles/1?tag_id=2&title=test-edit1&desc=test-desc-edit&content=test-content-edit&modified_by=test-created-edit&state=0
@@ -15,3 +16,6 @@ DELETE http://127.0.0.1:8000/api/v1/articles/1
 
 ###
 GET http://127.0.0.1:8000/auth?username=test&password=test123456
+
+###
+GET http://127.0.0.1:8000/api/v1/articles?tag_id=0&state=9999999&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpc3MiOiJnaW4tYmxvZyIsImV4cCI6MTY4NDE3NzgxM30.dNsgED6om97nIqP7POZP9BziO5AQl8veejmn8Cy7KKQ
