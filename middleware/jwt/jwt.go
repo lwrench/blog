@@ -7,17 +7,29 @@ import (
 	"github.com/lwrench/blog/pkg/e"
 	"github.com/lwrench/blog/pkg/util"
 	"net/http"
+	"strings"
 )
 
 func JWT() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var code int
 		var data interface{}
+		var token string
 
 		code = e.SUCCESS
-		token := c.Query("token")
+		authHeader := c.Request.Header.Get("Authorization")
+		if authHeader == "" {
+			code = e.ERROR_AUTH_CHECK_TOKEN_FAIL
+		} else {
+			splitToken := strings.Split(authHeader, " ")
+			if len(splitToken) == 2 && strings.ToLower(splitToken[0]) == "bearer" {
+				token = splitToken[1]
+			} else {
+				code = e.ERROR_AUTH_CHECK_TOKEN_FAIL
+			}
+		}
 		if token == "" {
-			code = e.INVALID_PARAMS
+			code = e.ERROR_AUTH_CHECK_TOKEN_FAIL
 		} else {
 			_, err := util.ParseToken(token)
 			if err != nil {

@@ -41,22 +41,25 @@ func GetTags(c *gin.Context) {
 }
 
 func AddTag(c *gin.Context) {
-	name := c.Query("name")
-	state := com.StrTo(c.DefaultQuery("state", "0")).MustInt()
-	createdBy := c.Query("created_by")
+	params := &AddTagParams{}
+	c.BindJSON(&params)
+
+	//name := c.PostForm("name")
+	//state := com.StrTo(c.DefaultPostForm("state", "0")).MustInt()
+	//createdBy := c.PostForm("created_by")
 
 	valid := validation.Validation{}
-	valid.Required(name, "name").Message("name can't be empty")
-	valid.MaxSize(name, 100, "name").Message("name can't longer than 100 chars")
-	valid.Required(createdBy, "created_by").Message("createdBy can't be empty")
-	valid.MaxSize(createdBy, 100, "created_by").Message("createBy can't longer than 100 chars")
-	valid.Range(state, 0, 1, "state").Message("state must be 0 or 1")
+	valid.Required(params.Name, "name").Message("name can't be empty")
+	valid.MaxSize(params.Name, 100, "name").Message("name can't longer than 100 chars")
+	valid.Required(params.CreatedBy, "created_by").Message("createdBy can't be empty")
+	valid.MaxSize(params.CreatedBy, 100, "created_by").Message("createBy can't longer than 100 chars")
+	valid.Range(params.State, 0, 1, "state").Message("state must be 0 or 1")
 
 	code := e.INVALID_PARAMS
 	if !valid.HasErrors() {
-		if !models.ExistTagByName(name) {
+		if !models.ExistTagByName(params.Name) {
 			code = e.SUCCESS
-			models.AddTag(name, state, createdBy)
+			models.AddTag(params.Name, params.State, params.CreatedBy)
 		} else {
 			code = e.ERROR_EXIST_TAG
 		}

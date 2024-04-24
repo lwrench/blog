@@ -11,7 +11,7 @@ type Tag struct {
 	Name       string `json:"name"`
 	CreatedBy  string `json:"created_by"`
 	ModifiedBy string `json:"modified_by"`
-	State      int    `json:"state"`
+	State      int8   `json:"state"`
 }
 
 func GetTags(pageNum int, pageSize int, maps interface{}) (tags []Tag) {
@@ -36,7 +36,7 @@ func ExistTagByName(name string) bool {
 	return false
 }
 
-func AddTag(name string, state int, createdBy string) bool {
+func AddTag(name string, state int8, createdBy string) bool {
 	db.Create(&Tag{
 		Name:      name,
 		State:     state,

@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 
 	"github.com/lwrench/blog/pkg/setting"
 )
@@ -13,15 +13,15 @@ import (
 var db *gorm.DB
 
 type Model struct {
-	ID         int `gorm:"primary_key" json:"id"`
-	CreatedOn  int `json:"created_on"`
-	ModifiedOn int `json:"modified_on"`
+	ID         uint `gorm:"primary_key" json:"id"`
+	CreatedOn  int  `json:"created_on"`
+	ModifiedOn int  `json:"modified_on"`
 }
 
 func init() {
 	var (
-		err                                               error
-		dbType, dbName, user, password, host, tablePrefix string
+		err                                                     error
+		dbType, dbName, user, password, host, port, tablePrefix string
 	)
 
 	sec, err := setting.Cfg.GetSection("database")
@@ -34,13 +34,17 @@ func init() {
 	user = sec.Key("USER").String()
 	password = sec.Key("PASSWORD").String()
 	host = sec.Key("HOST").String()
+	port = sec.Key("PORT").String()
 	tablePrefix = sec.Key("TABLE_PREFIX").String()
 
-	db, err = gorm.Open(dbType, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
-		user,
-		password,
+	dns := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s",
 		host,
-		dbName))
+		port,
+		user,
+		dbName,
+		password,
+	)
+	db, err = gorm.Open(dbType, dns)
 
 	if err != nil {
 		log.Println(err)
